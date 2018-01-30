@@ -3,7 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class memories extends CI_Controller {
 
-  public function view(){
+    public function __construct(){
+      parent::__construct();
+			$this->load->library('javascript', FALSE);
+		}
+
+    public function view(){
 			// if(!file_exists(APPPATH.'views/memories/'.$page.'.php')){
 			// 	show_404();
 			// }
@@ -95,6 +100,15 @@ class memories extends CI_Controller {
     public function delete($slug = NULL){
       $this->memories_model->delete($slug);
       redirect('memories');
+    }
+
+    public function ajaxChangeMemoPs(){
+      $result = $this->memories_model->ajaxUpdate();
+      $msg = false;
+      if($result){
+        $msg = true;
+      }
+      return json_encode($msg);
     }
 
 

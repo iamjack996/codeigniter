@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form' ,'text');  //text 控制顯示字數
+$autoload['helper'] = array('url', 'form' ,'text');  //form_open; text 控制顯示字數;
 
 /*
 | -------------------------------------------------------------------

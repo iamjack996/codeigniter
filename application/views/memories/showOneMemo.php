@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Memories list</title>
     <link href="https://bootswatch.com/4/cerulean/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -42,9 +43,68 @@
       <hr>
     </div>
     <p><b><?php echo $memories['date']; ?></b></p>
-    <p><?php echo $memories['ps']; ?></p>
+    <a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch();" >
+      <p><?php echo $memories['ps']; ?></p>
+    </a>
+
+    <input type="hidden" id="slug" value="<?php echo $memories['slug']; ?>">
+    <input type="hidden" id="ps" value="<?php echo $memories['ps']; ?>">
+
+    <!-- <script type="text/javascript" src = "../user_guide/_static/js/app.js"></script> -->
+
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <script type="text/javascript">
+
+    function memoTouch(){
+      var content = $("#ps").val();
+      var item =
+      '<div class="form-group">'+
+        '<label>Change Your Description Content</label>'+
+        '<textarea class="form-control" id="new-memo-ps" rows="3">'+content+'</textarea>'+
+      '</div>'+
+      '<button id="change-memo-ps" type="button" class="btn btn-primary">Done</button>';
+      $("#memo-touch-edit").replaceWith(item);
+    }
+
+    // $("#change-memo-ps").click(function(e){
+    //   e.preventDefault();
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/changeMemoPs/\slug",
+    //     data: {slug:$("#slug").val(),ps:$("#new-memo-ps").val()},
+    //     success: function(data){
+    //       console.log(data);
+    //       var item =
+    //       '<a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch()">'+
+    //         '<p>'+data.ps+'</p>'+
+    //       '</a>';
+    //       $("#change-memo-ps").replaceWith(item);
+    //     }
+    //   })
+    // });
+
+    $("#change-memo-ps").click(function(e){
+      e.preventDefault();
+      $.ajax({
+        type: "ajax",
+        method: "post",
+        url: '<?php echo base_url() ?>changeMemoPs',
+        data: {slug:$("#slug").val(),ps:$("#new-memo-ps").val()},
+        success: function(data){
+          console.log(data);
+          var item =
+          '<a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch()">'+
+            '<p>'+$("#new-memo-ps").val()+'</p>'+
+          '</a>';
+          $("#change-memo-ps").replaceWith(item);
+        },error: function(){
+          alert('Fail');
+        }
+      })
+    });
 
 
+    </script>
 
   </body>
 </html>

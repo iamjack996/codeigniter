@@ -9,6 +9,13 @@ $route['memories'] = 'memories/view';
 $route['GetCreate'] = 'memories/createMemo';
 $route['createPost'] = 'memories/createPost';
 
+
+// ajax
+// $route['changeMemoPs/(:any)'] = 'memories/ajaxChangeMemoPs/$1';
+$route['changeMemoPs'] = 'memories/ajaxChangeMemoPs';
+
+
+
 $route['(:any)'] = 'memories/view/$1';
 $route['memories/(:any)'] = 'memories/viewOne/$1';
 $route['updatePost/(:any)'] = 'memories/updatePost/$1';
