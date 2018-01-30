@@ -39,6 +39,7 @@
     </blockquote>
 
     <div align="right">
+      <a class="btn btn-primary btn-lg" href="/codeigniter/GetCreate">C R E A T E</a>
     </div>
 
     <table class="table table-hover">
@@ -55,6 +56,8 @@
           <tr class=<?php echo $memory['type']; ?>>
             <th scope="row"><?php echo $memory['date']; ?></th>
             <td><a href="<?php echo ('memories/'.$memory['slug']); ?>"><?php echo $memory['title']; ?></a></td>
+            <td><?php echo word_limiter($memory['ps'], 10); ?></td>
+            <td><a class="btn btn-primary" href="<?php echo ('memories/update/'.$memory['slug']); ?>">E D I T</a></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
