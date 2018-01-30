@@ -31,34 +31,20 @@
       </div>
     </nav>
 
-    <h1><?= $title ?> List</h1>
-
     <blockquote class="blockquote text-center">
       <p class="mb-0">使用簡潔有力的網路記事本，方便地註記生活大小事，簡單用顏色分出你的每件事。</p>
       <footer class="blockquote-footer">接下來做什麼 <cite title="Source Title">by Jack.</cite></footer>
     </blockquote>
 
-    <div align="right">
-    </div>
 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-          <th scope="col">按鈕</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach($memories as $memory): ?>
-          <tr class=<?php echo $memory['type']; ?>>
-            <th scope="row"><?php echo $memory['date']; ?></th>
-            <td><a href="<?php echo ('memories/'.$memory['slug']); ?>"><?php echo $memory['title']; ?></a></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+    <div class="<?php echo $memories['type']; ?>">
+      <h1><?= $title ?></h1>
+      <hr>
+    </div>
+    <p><b><?php echo $memories['date']; ?></b></p>
+    <p><?php echo $memories['ps']; ?></p>
+
+
 
   </body>
 </html>
