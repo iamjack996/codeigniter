@@ -12,7 +12,7 @@ class memories extends CI_Controller {
 			// if(!file_exists(APPPATH.'views/memories/'.$page.'.php')){
 			// 	show_404();
 			// }
-			$data['title'] = 'memories';
+			$data['title'] = 'Memories';
       $data['memories'] = $this->memories_model->get_memories();
       $this->load->view('memories/memories', $data);
 		}

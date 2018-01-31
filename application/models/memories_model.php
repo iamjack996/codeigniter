@@ -48,16 +48,9 @@ class memories_model extends CI_Model{
     }
 
     public function ajaxUpdate(){
-      // $data = array(
-      //   'slug' => $this->input->post('slug'),
-      //   'ps' => $this->input->post('ps'),
-      // );
       $data = array(
-        'title' => 'test',
-        'slug' => url_title($this->input->post('slug')),
+        'slug' => $this->input->post('slug'),
         'ps' => $this->input->post('ps'),
-        'date' => 'test',
-        'type' => 'test'
       );
       $this->db->where('slug', $data['slug']);
 			$this->db->update('memories', $data);
