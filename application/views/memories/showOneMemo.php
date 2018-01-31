@@ -43,9 +43,16 @@
       <hr>
     </div>
     <p><b><?php echo $memories['date']; ?></b></p>
-    <a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch();" >
-      <p><?php echo $memories['ps']; ?></p>
+    <a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch();">
+      <p id="show-memo-ps"><?php echo $memories['ps']; ?></p>
     </a>
+
+    <div id="edit-memo" class="form-group" style="display: none;">
+      <label>Edit Description Content Textarea</label>
+      <textarea class="form-control" id="new-memo-ps" rows="3"><?php echo $memories['ps']; ?></textarea><br>
+      <button id="change-memo-ps" type="button" class="btn btn-primary">Done</button>　
+      <button id="unchange-memo-ps" type="button" class="btn btn-primary">Cencel</button>
+    </div>
 
     <input type="hidden" id="slug" value="<?php echo $memories['slug']; ?>">
     <input type="hidden" id="ps" value="<?php echo $memories['ps']; ?>">
@@ -56,15 +63,15 @@
     <script type="text/javascript">
 
     function memoTouch(){
-      var content = $("#ps").val();
-      var item =
-      '<div class="form-group">'+
-        '<label>Change Your Description Content</label>'+
-        '<textarea class="form-control" id="new-memo-ps" rows="3">'+content+'</textarea>'+
-      '</div>'+
-      '<button id="change-memo-ps" type="button" class="btn btn-primary">Done</button>';
-      $("#memo-touch-edit").replaceWith(item);
+      $("#memo-touch-edit").toggle();
+      $("#edit-memo").toggle();
     }
+
+    $("#unchange-memo-ps").click(function(){
+      $("#memo-touch-edit").toggle();
+      $("#edit-memo").toggle();
+      $("#new-memo-ps").val($("#ps").val());
+    });
 
     // $("#change-memo-ps").click(function(e){
     //   e.preventDefault();
@@ -82,7 +89,7 @@
     //     }
     //   })
     // });
-
+    //
     $("#change-memo-ps").click(function(e){
       e.preventDefault();
       $.ajax({
@@ -92,11 +99,10 @@
         data: {slug:$("#slug").val(),ps:$("#new-memo-ps").val()},
         success: function(data){
           console.log(data);
-          var item =
-          '<a id="memo-touch-edit" class="list-group-item list-group-item-action flex-column align-items-start" href="javascript:void(0);" onclick="memoTouch()">'+
-            '<p>'+$("#new-memo-ps").val()+'</p>'+
-          '</a>';
-          $("#change-memo-ps").replaceWith(item);
+          $("#show-memo-ps").replaceWith('<p id="show-memo-ps">'+$("#new-memo-ps").val()+'</p>');
+          $("#ps").val($("#new-memo-ps").val());
+          $("#memo-touch-edit").toggle();
+          $("#edit-memo").toggle();
         },error: function(){
           alert('Fail');
         }
